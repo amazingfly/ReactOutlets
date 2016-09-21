@@ -17,16 +17,22 @@ export class ButtonPair extends React.Component<any,any>{
                 <div>
                     <div className="ButtonPairArea">
                         <div>
-                            <Button button="OnButton" outlet={this.props.outlet}></Button>
+                            <Button className="on" button="OnButton" outlet={this.props.outlet}></Button>
                         </div>
-                        
                         <div>
-                            <Button button="OffButton" outlet={this.props.outlet}></Button>
+                            <Button className="off" button="OffButton" outlet={this.props.outlet}></Button>
                         </div>
                     </div>
                 </div>
             </div>
     }
     
-    componentDidMount = () => {}
+    componentDidMount = () => {
+        //var id = this.props.outlets;
+        //var idOn = id + "On";
+        //var idOff = id + "Off";
+        //console.log(id);
+        //console.log(idOn);
+        //console.log(idOff);
+    }
 }

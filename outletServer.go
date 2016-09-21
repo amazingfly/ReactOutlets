@@ -55,6 +55,33 @@ func outletHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//pressOutlets receives payload and sends linux command
+func pressOutlets(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	type Command struct {
+		Command string
+	}
+
+	decoder := json.NewDecoder(r.Body)
+	var cmd Command
+	err := decoder.Decode(&cmd)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//s := fmt.Sprint("echo " + cmd.Command)
+	s := fmt.Sprint("ls")
+	com := exec.Command(s)
+	err = com.Start()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(cmd.Command)
+	//w.Write(x)
+}
+
 //SendOutlets sends the desire number of outlets to setup
 func SendOutlets(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -79,6 +106,7 @@ func Serve() {
 	//load page
 	fmt.Println("server")
 	http.HandleFunc("/getOutlets", SendOutlets)
+	http.HandleFunc("/pressOutlets", pressOutlets)
 	s := &http.Server{
 		Addr:           ":9873",
 		Handler:        nil,

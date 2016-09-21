@@ -13,7 +13,7 @@ export class Button extends React.Component<any,any>{
     render(){
         return <div>
                 <div className={this.props.button}>
-                    <div className="center" >{this.props.outlet.Name}</div>
+                    <div data-id={this.props.outlet.Name+this.props.button} className="center" >{this.props.outlet.Name}</div>
                 </div>
             </div>
     }

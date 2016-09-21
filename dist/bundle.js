@@ -78,25 +78,7 @@
 	var MainPage = (function (_super) {
 	    __extends(MainPage, _super);
 	    function MainPage() {
-	        var _this = this;
 	        _super.call(this);
-	        /*
-	        componentWillMount = () => {
-	            
-	            OutletCall("getOutlets", {name:"grots"}, (result)=>{
-	                this.setState(result);
-	                console.log(this.state.Outlets);
-	            });
-	        }*/
-	        this.componentDidMount = function () {
-	            _this._el.addEventListener('click', _this.clickHandler);
-	        };
-	        this.clickHandler = function (ev) {
-	            console.log(ev);
-	            console.log("target: " + ev.target);
-	            var elm = ev.target;
-	            console.log(elm.className);
-	        };
 	        this.state = {
 	            "Count": 0,
 	            "Outlets": [],
@@ -130,9 +112,20 @@
 	        var _this = this;
 	        _super.call(this);
 	        this.componentDidMount = function () {
+	            _this._el.addEventListener('click', _this.clickHandler);
 	            share_1.OutletCall("getOutlets", { name: "grots" }, function (result) {
 	                _this.setState(result);
 	                console.log(_this.state.Outlets);
+	            });
+	        };
+	        this.clickHandler = function (ev) {
+	            //console.log(ev);
+	            //console.log("target: "+ev.target);
+	            var elm = ev.target;
+	            //console.log(elm.className);
+	            var command = elm.getAttribute("data-id");
+	            share_1.OutletCall("pressOutlets", { command: command }, function (result) {
+	                console.log(result);
 	            });
 	        };
 	        this.state = {
@@ -140,7 +133,8 @@
 	        };
 	    }
 	    ButtonPanel.prototype.render = function () {
-	        return React.createElement("div", null, this.state.Outlets.map(function (v, i) {
+	        var _this = this;
+	        return React.createElement("div", {ref: function (c) { return _this._el = c; }}, this.state.Outlets.map(function (v, i) {
 	            return React.createElement(ButtonPair_1.ButtonPair, {key: i, outlet: v});
 	        }));
 	    };
@@ -165,10 +159,17 @@
 	    __extends(ButtonPair, _super);
 	    function ButtonPair() {
 	        _super.call(this);
-	        this.componentDidMount = function () { };
+	        this.componentDidMount = function () {
+	            //var id = this.props.outlets;
+	            //var idOn = id + "On";
+	            //var idOff = id + "Off";
+	            //console.log(id);
+	            //console.log(idOn);
+	            //console.log(idOff);
+	        };
 	    }
 	    ButtonPair.prototype.render = function () {
-	        return React.createElement("div", null, React.createElement("div", null, React.createElement("div", {className: "ButtonPairArea"}, React.createElement("div", null, React.createElement(Button_1.Button, {button: "OnButton", outlet: this.props.outlet})), React.createElement("div", null, React.createElement(Button_1.Button, {button: "OffButton", outlet: this.props.outlet})))));
+	        return React.createElement("div", null, React.createElement("div", null, React.createElement("div", {className: "ButtonPairArea"}, React.createElement("div", null, React.createElement(Button_1.Button, {className: "on", button: "OnButton", outlet: this.props.outlet})), React.createElement("div", null, React.createElement(Button_1.Button, {className: "off", button: "OffButton", outlet: this.props.outlet})))));
 	    };
 	    return ButtonPair;
 	}(React.Component));
@@ -192,7 +193,7 @@
 	        _super.call(this);
 	    }
 	    Button.prototype.render = function () {
-	        return React.createElement("div", null, React.createElement("div", {className: this.props.button}, React.createElement("div", {className: "center"}, this.props.outlet.Name)));
+	        return React.createElement("div", null, React.createElement("div", {className: this.props.button}, React.createElement("div", {"data-id": this.props.outlet.Name + this.props.button, className: "center"}, this.props.outlet.Name)));
 	    };
 	    return Button;
 	}(React.Component));

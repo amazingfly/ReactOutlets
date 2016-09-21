@@ -28,6 +28,7 @@ export class MainPage extends React.Component<any,any>{
         });
     }*/
     
+    /*
     componentDidMount = () => {
         this._el.addEventListener('click', this.clickHandler);
         
@@ -39,4 +40,5 @@ export class MainPage extends React.Component<any,any>{
         let elm = ev.target as Element;
         console.log(elm.className);
     }
+    */
 }
