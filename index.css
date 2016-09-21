@@ -1,0 +1,36 @@
+body{
+    background-color:lightgrey;
+}
+
+.OnButton, .OffButton{
+    display: inline-block;
+    width:75px;
+    height:75px;
+    margin:1% auto;
+    text-align:center;
+}
+.OnButton{
+    background-color:rgba(0,255,100,0.4);
+}
+.OnButton:hover{
+    background-color:rgba(0,100,100,0.4);
+}
+.OffButton{
+    background-color:rgba(255,0,0,100.4);
+}
+.OffButton:hover{
+    background-color:rgba(100,0,100,0.4);
+}
+.center{
+    display: flex;
+    height:100%;
+    align-items: center;
+    justify-content: center;
+}
+.ButtonPairArea{
+    background-color:rgba(0,0,100,0.3);
+    padding:5px;
+    max-width:100%;
+    max-height:100%;
+    float:left;
+}
